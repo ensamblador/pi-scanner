@@ -1,1 +1,8 @@
--e .
+aws-cdk.aws-sqs
+aws-cdk.aws-iam
+aws-cdk.aws-lambda
+aws-cdk.aws-lambda-event-sources
+aws-cdk.aws-kinesisfirehose
+aws-cdk.aws-s3-notifications
+aws-cdk.aws-events-targets
+aws-cdk.aws-glue

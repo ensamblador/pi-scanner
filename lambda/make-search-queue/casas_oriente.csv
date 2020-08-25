@@ -1,0 +1,6 @@
+operacion;categoria;busqueda;min_bedrooms;max_bedrooms;min_bathrooms;min_price_uf;max_price_uf;min_m2
+venta;venta_casa;la dehesa;3;5;2;5000;16000;120
+venta;venta_casa;las condes;3;5;2;5000;16000;120
+venta;venta_casa;vitacura;3;5;2;5000;16000;120
+venta;venta_casa;providencia;3;5;2;5000;16000;120
+venta;venta_casa;lo barnechea;3;5;2;5000;16000;120

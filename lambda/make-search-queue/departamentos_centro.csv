@@ -1,0 +1,4 @@
+operacion;categoria;busqueda;min_bedrooms;max_bedrooms;min_bathrooms;min_price_uf;max_price_uf;min_m2
+venta;venta_departamento;santiago;2;2;2;1500;3000;45
+venta;venta_departamento;nunoa;2;2;1;1500;3000;45
+venta;venta_departamento;providencia;2;2;1;1500;3000;45
