@@ -72,7 +72,7 @@ class PortalInmobiliarioScannerStack(core.Stack):
         bucket.grant_read_write(make_search_queue)
         queue_searches.grant_send_messages(make_search_queue)
 
-        event_rule_day = events.Rule(self, "cada-dia",schedule=events.Schedule.cron(day='*',hour='22'))
+        event_rule_day = events.Rule(self, "cada-dia",schedule=events.Schedule.cron(day='*',hour='22', minute='00'))
         event_rule_day.add_target(targets.LambdaFunction(make_search_queue))
 
 # ================================================================================================================
@@ -96,7 +96,7 @@ class PortalInmobiliarioScannerStack(core.Stack):
         bucket.grant_read_write(web_scrapper_function)
         queue_searches.grant_consume_messages(web_scrapper_function)
         
-        event_rule = events.Rule(self, "cada-minuto",schedule=events.Schedule.cron(minute='*/5'))
+        event_rule = events.Rule(self, "cada-minuto",schedule=events.Schedule.cron(minute='*/3'))
         event_rule.add_target(targets.LambdaFunction(web_scrapper_function))
 
 
@@ -125,6 +125,6 @@ class PortalInmobiliarioScannerStack(core.Stack):
             database_name=glue_db.database_name,
             schedule=None,
             role=glue_role.role_arn,
-            targets={"s3Targets": [{"path": "s3://{}/{}/".format(bucket.bucket_name, RESULTS_PREFIX)}]}
+            targets={"s3Targets": [{"path": "s3://{}/{}".format(bucket.bucket_name, RESULTS_PREFIX)}]}
         )
 

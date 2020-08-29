@@ -102,19 +102,22 @@ def resultados(driver, operacion='venta',categoria='venta_casa', busqueda='vitac
     driver.find_element_by_class_name("filters__price").find_element_by_class_name("price-filter__actions").click()
 
 
-    bedrooms_filter = driver.find_element_by_css_selector("#id_BEDROOMS")
-    bedrooms_filter.find_element_by_css_selector("#fromRange").send_keys(min_bedrooms) 
-    bedrooms_filter.find_element_by_css_selector("#toRange").send_keys(max_bedrooms)
-    bedrooms_filter.find_element_by_css_selector("button.filter-action-btn").click()
+    bedrooms_filter = driver.find_elements_by_css_selector("#id_BEDROOMS")
+    if len(bedrooms_filter):
+        bedrooms_filter[0].find_element_by_css_selector("#fromRange").send_keys(min_bedrooms) 
+        bedrooms_filter[0].find_element_by_css_selector("#toRange").send_keys(max_bedrooms)
+        bedrooms_filter[0].find_element_by_css_selector("button.filter-action-btn").click()
 
 
-    bathroom_filter = driver.find_element_by_css_selector("#id_FULL_BATHROOMS")
-    bathroom_filter.find_element_by_css_selector("#fromRange").send_keys(min_bathrooms) 
-    bathroom_filter.find_element_by_css_selector("button.filter-action-btn").click()
+    bathroom_filter = driver.find_elements_by_css_selector("#id_FULL_BATHROOMS")
+    if len(bathroom_filter):
+        bathroom_filter[0].find_element_by_css_selector("#fromRange").send_keys(min_bathrooms) 
+        bathroom_filter[0].find_element_by_css_selector("button.filter-action-btn").click()
 
-    m2_filter = driver.find_element_by_css_selector("#id_COVERED_AREA")
-    m2_filter.find_element_by_css_selector("#fromRange").send_keys(min_m2)
-    m2_filter.find_element_by_css_selector("button.filter-action-btn").click()
+    m2_filter = driver.find_elements_by_css_selector("#id_COVERED_AREA")
+    if len(m2_filter):
+        m2_filter[0].find_element_by_css_selector("#fromRange").send_keys(min_m2)
+        m2_filter[0].find_element_by_css_selector("button.filter-action-btn").click()
 
     records  = []
     end_pages = False
@@ -123,7 +126,12 @@ def resultados(driver, operacion='venta',categoria='venta_casa', busqueda='vitac
 
         elems = driver.find_elements_by_css_selector("li.results-item > div")
         driver.implicitly_wait(0)
-        records += process_elems(elems)
+        if len(elems):
+            records += process_elems(elems)
+        else:
+            end_pages = True
+            print ('Fin Paginas')
+            break
 
         try:
             driver.implicitly_wait(15)

@@ -39,6 +39,20 @@ def main(event, context):
         sqs_queue_url = 'https://sqs.us-west-1.amazonaws.com/844626608976/portal-inmobiliario-scanner-searchesfailed8CDB2A06-1TPJ5JOKZNRFB'
 
     sqs = boto3.client('sqs', region_name=region_name)
+    
+
+    #For testing
+    '''
+    msgs = {
+        'Messages': [
+            {
+                'Body': "{\"operacion\": \"venta\", \"categoria\": \"venta_departamento\", \"busqueda\": \"providencia\", \"min_bedrooms\": 3, \"max_bedrooms\": 3, \"min_bathrooms\": 2, \"min_price_uf\": 1500, \"max_price_uf\": 3000, \"min_m2\": 80}",
+                'ReceiptHandle': 'sajdhkoasjd09i032'
+            }
+        ]
+    }
+    '''
+
     msgs = sqs.receive_message(QueueUrl=sqs_queue_url, MaxNumberOfMessages=1)
 
     if not("Messages" in msgs):
@@ -107,8 +121,8 @@ def main(event, context):
     )
     resultados.to_csv(dest_location,sep=';',index=False)
 
-    
     sqs.delete_message(QueueUrl=sqs_queue_url, ReceiptHandle=receipt_handle)
+    print (receipt_handle, " => Borrado")
     
     return {
         'statusCode': 200,
